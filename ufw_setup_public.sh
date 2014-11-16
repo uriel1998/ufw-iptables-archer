@@ -25,7 +25,7 @@ echo y | sudo ufw reset
 # Internet Exposed Apps
 ##########################################################
 sudo ufw allow Crashplan
-sudo ufw allow Deluge
+#sudo ufw allow Deluge
 #sudo ufw allow Icecast
 sudo ufw allow BTSync
 
@@ -33,32 +33,34 @@ sudo ufw allow BTSync
 # LAN System Apps
 ##########################################################
 # FTP - it's a service, so no app profile
-sudo ufw allow proto tcp from 192.168.1.0/24 to any port 20
-sudo ufw allow proto tcp from 192.168.1.0/24 to any port 21
+#sudo ufw allow proto tcp from 192.168.1.0/24 to any port 20
+#sudo ufw allow proto tcp from 192.168.1.0/24 to any port 21
 # WakeOnLan
-sudo ufw allow from 192.168.1.0/24 to any port 9
-sudo ufw allow from 192.168.1.0/24 to any app CUPS
+#sudo ufw allow from 192.168.1.0/24 to any port 9
+#sudo ufw allow from 192.168.1.0/24 to any app CUPS
 # Getting Mail
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_IMAP
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_POP3
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_IMAPS
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_POP3S
 #sudo ufw allow from 192.168.1.0/24 to any app MySQL
-sudo ufw allow in from 192.168.1.0/24 to any app OpenSSH
-sudo ufw allow from 192.168.1.0/24 to any app Samba
-sudo ufw allow from 192.168.1.0/24 to any app Telnet
-sudo ufw allow from 192.168.1.0/24 to any app WWW
-sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+#sudo ufw allow in from 192.168.1.0/24 to any app OpenSSH
+#sudo ufw allow from 192.168.1.0/24 to any app Samba
+#sudo ufw allow from 192.168.1.0/24 to any app Telnet
+#sudo ufw allow from 192.168.1.0/24 to any app WWW
+#sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
 
 ##########################################################
 # LAN Media
 ##########################################################
-sudo ufw allow from 192.168.1.0/24 to any app MPD
-sudo ufw allow from 192.168.1.0/24 to any app VLC_HTTP
-sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
-sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
-sudo ufw allow from 192.168.1.0/24 to any app VNC
-sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
+#sudo ufw allow from 192.168.1.0/24 to any app Clementine
+#sudo ufw allow from 192.168.1.0/24 to any app UMS
+#sudo ufw allow from 192.168.1.0/24 to any app MPD
+#sudo ufw allow from 192.168.1.0/24 to any app VLC_HTTP
+#sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
+#sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
+#sudo ufw allow from 192.168.1.0/24 to any app VNC
+#sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
 
 
 ##########################################################

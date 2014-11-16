@@ -1,0 +1,6 @@
+[Clementine]
+title=Clementine
+description=Clementine Music Player
+ports=5500
+categories=Network;AudioVideo;Audio;
+

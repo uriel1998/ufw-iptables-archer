@@ -54,6 +54,8 @@ sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure
 # LAN Media
 ##########################################################
 sudo ufw allow from 192.168.1.0/24 to any app MPD
+sudo ufw allow from 192.168.1.0/24 to any app Clementine
+sudo ufw allow from 192.168.1.0/24 to any app UMS
 sudo ufw allow from 192.168.1.0/24 to any app VLC_HTTP
 sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
 sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
@@ -64,6 +66,7 @@ sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
 ##########################################################
 # Internet Exposed Games
 ##########################################################
+#sudo ufw allow ProjectZomboid
 #sudo ufw allow Quake2
 #sudo ufw allow Blizzard
 #sudo ufw allow D2X-XL
