@@ -1,0 +1,14 @@
+[DOSBox_IPX]
+title=DOSBox IPX
+description=DOS system emulator
+ports=213/udp
+categories=System;Emulator;
+reference=[http://www.dosbox.com/wiki/Connectivity DOSBoxWiki: Connectivity]
+
+[DOSBox_Modem]
+title=DOSBox Modem
+description=DOS system emulator
+ports=5000/tcp
+categories=System;Emulator;
+reference=[http://www.dosbox.com/wiki/Connectivity DOSBoxWiki: Connectivity]
+

@@ -1,0 +1,14 @@
+[Quake]
+title=Quake
+description=A FPS by id Software
+ports=26000
+categories=Game;ActionGame;
+reference=[http://icculus.org/lgfaq/en/network.php Icculous.org: Networking Queries]
+
+[QuakeWorld]
+title=QuakeWorld
+description=An enhanced multiplayer version of Quake by id Software
+ports=27500/udp
+categories=Game;ActionGame;
+reference=[http://icculus.org/lgfaq/en/network.php Icculous.org: Networking Queries]
+

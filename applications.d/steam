@@ -1,0 +1,7 @@
+[Steam]
+title=Steam
+description=Software distribution service and game server browser from Valve
+ports=27015/tcp
+categories=Network;Game;
+reference=[https://support.steampowered.com/kb_article.php?ref=8571-GLVN-8711 Steam Support: Required Ports for Steam]
+

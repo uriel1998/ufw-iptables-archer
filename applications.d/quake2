@@ -1,0 +1,6 @@
+[Quake2]
+title=Quake II
+description=A FPS by id Software
+ports=27901:27910/tcp
+categories=Game;ActionGame;
+reference=[http://icculus.org/lgfaq/en/network.php Icculous.org: Networking Queries]
