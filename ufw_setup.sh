@@ -49,6 +49,7 @@ sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
 sudo ufw allow from 192.168.1.0/24 to any app WWW
 sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+sudo ufw allow from 192.168.1.0/24 to any app BTSync
 
 ##########################################################
 # LAN Media
