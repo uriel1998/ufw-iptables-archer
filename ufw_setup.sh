@@ -28,6 +28,8 @@ sudo ufw allow Crashplan
 sudo ufw allow Deluge
 #sudo ufw allow Icecast
 sudo ufw allow BTSync
+sudo ufw allow BTSync_Listen
+sudo ufw allow Dukto
 
 ##########################################################
 # LAN System Apps
@@ -49,7 +51,6 @@ sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
 sudo ufw allow from 192.168.1.0/24 to any app WWW
 sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
-sudo ufw allow from 192.168.1.0/24 to any app BTSync
 
 ##########################################################
 # LAN Media
@@ -67,6 +68,7 @@ sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
 ##########################################################
 # Internet Exposed Games
 ##########################################################
+#sudo ufw allow QuakeLive
 #sudo ufw allow ProjectZomboid
 #sudo ufw allow Quake2
 #sudo ufw allow Blizzard

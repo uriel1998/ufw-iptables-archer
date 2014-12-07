@@ -1,5 +1,5 @@
 [Crashplan]
 title=Crashplan
 description=Backup service
-ports=4243
+ports=4243|4242
 categories=Office;
