@@ -27,9 +27,6 @@ echo y | sudo ufw reset
 sudo ufw allow Crashplan
 sudo ufw allow Deluge
 #sudo ufw allow Icecast
-sudo ufw allow BTSync
-sudo ufw allow BTSync_Listen
-sudo ufw allow Dukto
 
 ##########################################################
 # LAN System Apps
@@ -51,6 +48,8 @@ sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
 sudo ufw allow from 192.168.1.0/24 to any app WWW
 sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+sudo ufw allow from 192.168.1.0/24 to any app BTSync
+sudo ufw allow from 192.168.1.0/24 to any app Dukto
 
 ##########################################################
 # LAN Media
