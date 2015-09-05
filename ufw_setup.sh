@@ -48,8 +48,10 @@ sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
 sudo ufw allow from 192.168.1.0/24 to any app WWW
 sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+sudo ufw allow from 192.168.1.0/24 to any app SyncThing
 sudo ufw allow from 192.168.1.0/24 to any app BTSync
 sudo ufw allow from 192.168.1.0/24 to any app Dukto
+sudo ufw allow from 192.168.1.0/24 to any app Dropbox
 
 ##########################################################
 # LAN Media
@@ -68,20 +70,20 @@ sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
 # Internet Exposed Games
 ##########################################################
 #sudo ufw allow QuakeLive
-#sudo ufw allow ProjectZomboid
-#sudo ufw allow Quake2
-#sudo ufw allow Blizzard
-#sudo ufw allow D2X-XL
-#sudo ufw allow FreeSpace_2
-#sudo ufw allow Freeciv
+sudo ufw allow ProjectZomboid
+sudo ufw allow Quake2
+sudo ufw allow Blizzard
+sudo ufw allow D2X-XL
+sudo ufw allow FreeSpace_2
+sudo ufw allow Freeciv
 #sudo ufw allow Mechwarrior_4
-#sudo ufw allow out Minecraft
-#sudo ufw allow in Minecraft
-#sudo ufw allow Steam
+sudo ufw allow out Minecraft
+sudo ufw allow in Minecraft
+sudo ufw allow Steam
 #sudo ufw allow Doom
-#sudo ufw allow UFOAI
-#sudo ufw allow DOSBox_IPX
-#sudo ufw allow DOSBox_Modem
+sudo ufw allow UFOAI
+sudo ufw allow DOSBox_IPX
+sudo ufw allow DOSBox_Modem
 
 ##########################################################
 # Instant messaging
@@ -99,9 +101,9 @@ sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
 ##########################################################
 # My Outbound ONLY Traffic
 ##########################################################
-#sudo ufw allow out DNS 
-#sudo ufw allow out SSH
-#sudo ufw allow out time
+sudo ufw allow out DNS 
+sudo ufw allow out SSH
+sudo ufw allow out time
 
 ##########################################################
 # And close up everything else

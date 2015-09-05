@@ -1,0 +1,5 @@
+[Dropbox]
+title=Dropbox
+description=Dropbox's LAN Sync uses this port
+ports=17500
+categories=Office;

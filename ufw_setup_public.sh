@@ -25,9 +25,8 @@ echo y | sudo ufw reset
 # Internet Exposed Apps
 ##########################################################
 sudo ufw allow Crashplan
-#sudo ufw allow Deluge
+sudo ufw allow Deluge
 #sudo ufw allow Icecast
-sudo ufw allow BTSync
 
 ##########################################################
 # LAN System Apps
@@ -49,13 +48,16 @@ sudo ufw allow BTSync
 #sudo ufw allow from 192.168.1.0/24 to any app Telnet
 #sudo ufw allow from 192.168.1.0/24 to any app WWW
 #sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+#sudo ufw allow from 192.168.1.0/24 to any app BTSync
+#sudo ufw allow from 192.168.1.0/24 to any app Dukto
+#sudo ufw allow from 192.168.1.0/24 to any app Dropbox
 
 ##########################################################
 # LAN Media
 ##########################################################
+#sudo ufw allow from 192.168.1.0/24 to any app MPD
 #sudo ufw allow from 192.168.1.0/24 to any app Clementine
 #sudo ufw allow from 192.168.1.0/24 to any app UMS
-#sudo ufw allow from 192.168.1.0/24 to any app MPD
 #sudo ufw allow from 192.168.1.0/24 to any app VLC_HTTP
 #sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
 #sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
@@ -66,6 +68,8 @@ sudo ufw allow BTSync
 ##########################################################
 # Internet Exposed Games
 ##########################################################
+#sudo ufw allow QuakeLive
+#sudo ufw allow ProjectZomboid
 #sudo ufw allow Quake2
 #sudo ufw allow Blizzard
 #sudo ufw allow D2X-XL
@@ -96,9 +100,9 @@ sudo ufw allow BTSync
 ##########################################################
 # My Outbound ONLY Traffic
 ##########################################################
-#sudo ufw allow out DNS 
-#sudo ufw allow out SSH
-#sudo ufw allow out time
+sudo ufw allow out DNS 
+sudo ufw allow out SSH
+sudo ufw allow out time
 
 ##########################################################
 # And close up everything else
