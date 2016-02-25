@@ -21,12 +21,24 @@ echo y | sudo ufw reset
 # To delete a rule, add the word delete after ufw, which means you can
 # script dynamic rule changing fairly easily.
 
+
+##########################################################
+# These are from my update_ipblock script. Comment out if
+# you are not using it.
+##########################################################
+
+sudo iptables -A FORWARD -m set --match-set evil_ips src -j DROP
+sudo iptables -A INPUT -m set --match-set evil_ips src -j DROP
+
 ##########################################################
 # Internet Exposed Apps
 ##########################################################
 sudo ufw allow Crashplan
 sudo ufw allow Deluge
+sudo ufw allow OpenSSH
+sudo ufw limit OpenSSH
 #sudo ufw allow Icecast
+
 
 ##########################################################
 # LAN System Apps
@@ -43,7 +55,6 @@ sudo ufw allow from 192.168.1.0/24 to any app CUPS
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_IMAPS
 #sudo ufw allow from 192.168.1.0/24 to any app Dovecot_POP3S
 #sudo ufw allow from 192.168.1.0/24 to any app MySQL
-sudo ufw allow in from 192.168.1.0/24 to any app OpenSSH
 sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
 sudo ufw allow from 192.168.1.0/24 to any app WWW
@@ -52,6 +63,9 @@ sudo ufw allow from 192.168.1.0/24 to any app SyncThing
 sudo ufw allow from 192.168.1.0/24 to any app BTSync
 sudo ufw allow from 192.168.1.0/24 to any app Dukto
 sudo ufw allow from 192.168.1.0/24 to any app Dropbox
+sudo ufw allow from 192.168.1.0/24 to any port 8000
+#Synergy
+sudo ufw allow from 192.168.1.0/24 to any port 24800
 
 ##########################################################
 # LAN Media
@@ -64,7 +78,8 @@ sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
 sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
 sudo ufw allow from 192.168.1.0/24 to any app VNC
 sudo ufw allow from 192.168.1.0/24 to any app WWW_Cache
-
+#for calibre
+sudo ufw allow from 192.168.1.0/24 to any port 8001
 
 ##########################################################
 # Internet Exposed Games
