@@ -2,3 +2,4 @@
 title=Ports for Blizzard Games
 description=Includes Diablo and Diablo2, Warcraft 2 and 3, and Starcraft
 ports=6113:6119,4000/tcp
+categories=Game;

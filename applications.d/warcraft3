@@ -1,11 +1,11 @@
-[Warcraft III]
+[WarcraftIII]
 title=WINE: Warcraft III
 description=A strategy game by Blizzard Entertainment
 ports=6112/tcp
 categories=Game;StrategyGame;
 reference=[http://us.blizzard.com/support/article.xml?locale=en_US&articleId=21109 Blizzard Support: Port Information]
 
-[Warcraft III all ports]
+[WarcraftIII_all]
 title=WINE: Warcraft III all ports
 description=Warcraft III with 6112-6119 TCP ports open
 ports=6112:6119/tcp

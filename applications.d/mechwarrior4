@@ -1,4 +1,5 @@
 [Mechwarrior_4]
 title=Mechwarrior 4
 description=A FPS based on the Fasa Battletech universe
+categories=Game;
 ports=2300:2400,28800/udp|2300:2400,27999,28805:28808,47624/tcp

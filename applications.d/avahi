@@ -1,0 +1,5 @@
+[Avahi]
+title=Avahi
+description=Avahi is a media helper on Lan
+ports=5353
+categories=Network;

@@ -2,4 +2,4 @@
 title=Crashplan
 description=Backup service
 ports=443|4243|4242
-categories=Office;
+categories=System;

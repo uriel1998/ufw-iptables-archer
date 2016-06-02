@@ -2,8 +2,10 @@
 title=Socks proxy
 description=Socks proxy
 ports=1080/tcp
+Categories=Network;
 
 [Transparent Proxy]
 title=Transparent proxy
 description=Transparent proxy
 ports=8081/tcp
+Categories=Network;

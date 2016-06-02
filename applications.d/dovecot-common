@@ -3,21 +3,25 @@ title=Secure mail server (POP3)
 description=Dovecot is a mail server whose major goals are security and extreme
  reliability.
 ports=110/tcp
+Categories=Email;
 
 [Dovecot_POP3S]
 title=Secure mail server (POP3S)
 description=Dovecot is a mail server whose major goals are security and extreme
  reliability.
 ports=995/tcp
+Categories=Email;
 
 [Dovecot_IMAP]
 title=Secure mail server (IMAP)
 description=Dovecot is a mail server whose major goals are security and extreme
  reliability.
 ports=143/tcp
+Categories=Email;
 
 [Dovecot_IMAPS]
 title=Secure mail server (IMAPS)
 description=Dovecot is a mail server whose major goals are security and extreme
  reliability.
 ports=993/tcp
+Categories=Email;

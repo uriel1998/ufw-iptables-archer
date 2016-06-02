@@ -2,4 +2,4 @@
 title=Deluge
 description=Bittorrent - OUTBOUND MUST BE OPEN
 ports=41559
-categories=Internet;
+categories=Network;FileTransfer

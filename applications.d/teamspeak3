@@ -1,21 +1,21 @@
-[TeamSpeak_3]
+[TeamSpeak3]
 title=TeamSpeak 3
 description=TeamSpeak 3 voice service
 ports=9987/udp
-categories=Network;Telephony;
+categories=Telephony;
 reference=[http://www.teamspeak.com/?page=faq&cat=ts3server#ts3server_ports TeamSpeak 3 Technical Support (Server) FAQ]
 
-[TeamSpeak 3 file]
+[TeamSpeak3_file]
 title=TeamSpeak 3 File
 description=TeamSpeak 3 file transfer
 ports=30033/tcp
-categories=Network;Telephony;
+categories=Telephony;
 reference=[http://www.teamspeak.com/?page=faq&cat=ts3server#ts3server_ports TeamSpeak 3 Technical Support (Server) FAQ]
 
-[TeamSpeak 3 query]
+[TeamSpeak3_query]
 title=TeamSpeak 3 Query
 description=TeamSpeak 3 TCP query
 ports=10011/tcp
-categories=Network;Telephony;
+categories=Telephony;
 reference=[http://www.teamspeak.com/?page=faq&cat=ts3server#ts3server_ports TeamSpeak 3 Technical Support (Server) FAQ]
 

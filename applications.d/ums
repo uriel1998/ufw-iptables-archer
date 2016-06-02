@@ -2,5 +2,5 @@
 title=Ultimate Media Server
 description=Ultimate Media Server for streaming over LAN		
 ports=5001
-categories=Network;AudioVideo;Audio;
+categories=AudioVideo;Audio;Video;
 

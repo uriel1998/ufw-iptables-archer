@@ -2,13 +2,16 @@
 title=Mail server (SMTP)
 description=Postfix is a high-performance mail transport agent
 ports=25/tcp
+Categories=Email;
 
 [Postfix_SMTPS]
 title=Mail server (SMTPS)
 description=Postfix is a high-performance mail transport agent
 ports=465/tcp
+Categories=Email;
 
 [Postfix_Submission]
 title=Mail server (Submission)
 description=Postfix is a high-performance mail transport agent
 ports=587/tcp
+Categories=Email;

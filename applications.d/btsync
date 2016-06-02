@@ -2,5 +2,5 @@
 title=BTSync
 description=Bittorrent Sync
 ports=8888|61148|3838|46696
-categories=Office;Database;
+categories=System;FileTransfer;
 

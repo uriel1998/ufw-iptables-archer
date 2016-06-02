@@ -1,0 +1,5 @@
+[Synergy]
+title=Synergy
+description=Allows sharing keyboard and mouse between multiple computers
+ports=24800
+categories=System;

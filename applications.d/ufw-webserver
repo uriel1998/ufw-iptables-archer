@@ -2,18 +2,22 @@
 title=Web Server
 description=Web server
 ports=80/tcp
+categories=Network;WebBrowser;
 
 [WWW_Secure]
 title=Web Server (HTTPS)
 description=Web Server (HTTPS)
 ports=443/tcp
+categories=Network;WebBrowser;
 
 [WWW_Full]
 title=Web Server (HTTP,HTTPS)
 description=Web Server (HTTP,HTTPS)
 ports=80,443/tcp
+categories=Network;WebBrowser;
 
 [WWW_Cache]
 title=Web Server (8080)
 description=Web Server (8080)
 ports=8080/tcp
+categories=Network;WebBrowser;

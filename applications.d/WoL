@@ -1,0 +1,5 @@
+[WoL]
+title=Wake On Lan
+description=Allows Wake On Lan packets through
+ports=9
+categories=System;Network;

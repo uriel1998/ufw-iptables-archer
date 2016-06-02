@@ -8,14 +8,21 @@
 # It can be used without my UFW script, but you'll want to uncomment
 # the last two lines.
 #
-# Much props to http://kirkkosinski.com/2013/11/mass-blocking-evil-ip-addresses-iptables-ip-sets/
+# by Steven Saus
 #
-# Prerequisites: IPSET, which is probably available from your distro
+# Licensed under a MIT License
+#
+# References: http://kirkkosinski.com/2013/11/mass-blocking-evil-ip-addresses-iptables-ip-sets/
+#
+# Requires: IPSET, which is probably available from your distro
 ########################################################################
 
-#Changing this process to idle io priority
-#https://friedcpu.wordpress.com/2007/07/17/why-arent-you-using-ionice-yet/
+########################################################################
+# Changing this process to idle io priority
+# Reference: https://friedcpu.wordpress.com/2007/07/17/why-arent-you-using-ionice-yet/
+########################################################################
 ionice -c3 -p$$
+
 
 ########################################################################
 # Initializing 
@@ -33,12 +40,15 @@ if [ -f "$workdir"/evil_ips.dat ]; then
 	rm -f "$workdir"/evil_ips.dat
 fi
 
+cd "$workdir"
+
 ########################################################################
 # Download the IP filter lists. If you have an account with I-Blocklist, 
 # you may have more options; these are the public links
 #
 # We are only downloading "evil" ones - associated with child porn,
 # spyware, web exploits - stuff you just don't want.
+# Obviously, you will want to comment out any you don't care about.
 ########################################################################
 
 #Pedos
@@ -72,9 +82,10 @@ cat "$workdir"/bigfilter.raw | grep ":" | gawk -F ":" '{print $2}' |sort | uniq 
 rm "$workdir"/bigfilter.raw
 
 ########################################################################
-# Cleaning or creating the IP set, then adding the list. May take a while 
+# Cleaning or creating the IP set, then adding the list. May take a 
+# while. It echoes the IP address it's adding as it goes simply so
+# you have a visual clue as to what's going on.
 ########################################################################
-
 
 sudo ipset list $SETNAME &>/dev/null # check if the IP set exists
 if [ $? -ne 0 ]; then
@@ -88,7 +99,7 @@ fi
 
 echo "Adding IPs to $SETNAME"
 while read line;do
-	printf "."
+	printf "Adding $line \n"
 	sudo ipset add evil_ips "$line"
 done < "$workdir"/evil_ips.dat
 
