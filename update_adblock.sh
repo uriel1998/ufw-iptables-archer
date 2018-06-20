@@ -51,6 +51,14 @@ cd "$workdir"
 # Obviously, you will want to comment out any you don't care about.
 ########################################################################
 
+wget -O "$workdir"/ad1 "https://adaway.org/hosts.txt"
+wget -O "$workdir"/ad2 "https://hosts-file.net/ad_servers.txt"
+wget -O "$workdir"/ad3 "http://winhelp2002.mvps.org/hosts.txt"
+wget -O "$workdir"/ad4 "http://someonewhocares.org/hosts/zero/hosts"
+#A bit paranoid
+wget -O "$workdir"/ad6 "http://www.hostsfile.org/Downloads/hosts.txt"
+
+
 #Pedos
 wget -O "$workdir"/pedos.gz "http://list.iblocklist.com/?list=dufcxgnbjsdwmwctgfuj&fileformat=p2p&archiveformat=gz"
 #ads

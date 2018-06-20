@@ -1,5 +1,5 @@
 [SyncThing]
 title=SyncThing
 description=Opensource BT Sync
-ports=22000|21025|21026
+ports=22000|21025|21026|21027
 categories=System;FileTransfer;

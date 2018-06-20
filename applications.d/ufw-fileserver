@@ -7,8 +7,9 @@ Categories=System;
 [NFS]
 title=NFS server
 description=NFS and portmap server. Will also need access to mountd, statd and possibly others
-ports=2049,111/tcp|2049,111/udp
+ports=2049,111/tcp|2049,111/udp|4045/tcp|4045/udp|1110/tcp|1110/udp
 Categories=System;
+
 
 [svnserve]
 title=Subversion server

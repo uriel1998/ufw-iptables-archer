@@ -15,6 +15,8 @@
 # TODO: Allow for more user input and selection of rulesets
 ################################################################################
 
+scratch=$(tempfile)
+
 ################################################################################
 # Because otherwise this is a pain
 ################################################################################
@@ -27,7 +29,26 @@ read
 # To reset
 ################################################################################
 sudo ufw disable
-echo y | sudo ufw reset
+echo y | sudo ufw reset > $scratch
+
+################################################################################
+# To keep backups from getting out of control; we'll rotate them like logfiles 
+# here. The scratch file has the output lines from ufw reset:
+#
+# Resetting all rules to installed defaults. Proceed with operation (y|n)? Backing up 'user.rules' to '/lib/ufw/user.rules.20160522_142219'
+# Backing up 'after6.rules' to '/etc/ufw/after6.rules.20160522_142219'
+# 
+# etc. This bit here will find them and compress/rotate them.
+################################################################################
+
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    killold=`echo ${line%?} | awk -F "to \'" '{ print $1 }'`
+	
+done < "$scratch"
+
+# do stuff here
+
+rm $scratch
 
 ################################################################################
 # PulseAudio RTP Multicast
