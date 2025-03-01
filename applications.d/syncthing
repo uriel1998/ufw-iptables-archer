@@ -1,5 +1,9 @@
-[SyncThing]
-title=SyncThing
-description=Opensource BT Sync
-ports=22000|21025|21026|21027
-categories=System;FileTransfer;
+[syncthing]
+title=Syncthing
+description=Syncthing file synchronisation
+ports=22000|21027/udp
+
+[syncthing-gui]
+title=Syncthing-GUI
+description=Syncthing web gui
+ports=8384/tcp

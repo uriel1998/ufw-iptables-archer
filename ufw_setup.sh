@@ -43,7 +43,7 @@ echo y | sudo ufw reset > $scratch
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
     killold=`echo ${line%?} | awk -F "to \'" '{ print $1 }'`
-	
+        
 done < "$scratch"
 
 # do stuff here
@@ -56,8 +56,8 @@ rm $scratch
 # Please note rules below that also need to be enabled.
 # These must go first.
 ################################################################################
-sudo iptables -A ufw-before-input -p igmp -d 224.0.0.0/4 -j ACCEPT
-sudo iptables -A ufw-before-output -p igmp -d 224.0.0.0/4 -j ACCEPT
+# sudo iptables -A ufw-before-input -p igmp -d 224.0.0.0/4 -j ACCEPT
+# sudo iptables -A ufw-before-output -p igmp -d 224.0.0.0/4 -j ACCEPT
 
 ################################################################################
 # These are from my update_ipblock script. Comment out if
@@ -71,8 +71,8 @@ sudo iptables -A INPUT -m set --match-set evil_ips src -j DROP
 ################################################################################
 #sudo ufw allow Icecast
 #sudo ufw allow Icecast-SHOUTcast
-sudo ufw allow Crashplan
-sudo ufw allow Deluge
+#sudo ufw allow Crashplan
+#sudo ufw allow Deluge
 
 ################################################################################
 # Email - you should NOT have to use this unless you are directly having mail 
@@ -91,7 +91,7 @@ sudo ufw allow from 192.168.1.0/24 to any app CUPS
 sudo ufw allow proto tcp from 192.168.1.0/24 to any port 21
 sudo ufw allow in from 192.168.1.0/24 to any app OpenSSH
 sudo ufw allow from 192.168.1.0/24 to any app Telnet
-sudo ufw allow from 192.168.1.0/24 to any app Synergy
+#sudo ufw allow from 192.168.1.0/24 to any app Synergy
 
 ################################################################################
 # LAN File Transfer
@@ -99,7 +99,7 @@ sudo ufw allow from 192.168.1.0/24 to any app Synergy
 ################################################################################
 #sudo ufw allow from 192.168.1.0/24 to any app BTSync
 #sudo ufw allow from 192.168.1.0/24 to any app Dukto
-#sudo ufw allow from 192.168.1.0/24 to any app SyncThing
+sudo ufw allow from 192.168.1.0/24 to any app SyncThing
 sudo ufw allow from 192.168.1.0/24 to any app Dropbox
 sudo ufw allow from 192.168.1.0/24 to any app Samba
 sudo ufw allow proto tcp from 192.168.1.0/24 to any port 20
@@ -117,9 +117,9 @@ sudo ufw allow from 192.168.1.0/24 to any app Dovecot_POP3S
 # LAN Webserver/Database
 # Obviously, change the LAN netmask based on your setup
 ################################################################################
-sudo ufw allow from 192.168.1.0/24 to any app MySQL
+#sudo ufw allow from 192.168.1.0/24 to any app MySQL
 sudo ufw allow from 192.168.1.0/24 to any app WWW
-sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure	
+sudo ufw allow from 192.168.1.0/24 to any app WWW_Secure        
 
 ################################################################################
 # LAN Random Applications; Way too many things use 8000 or 8080
@@ -135,25 +135,25 @@ sudo ufw allow from 192.168.1.0/24 to any port 8080
 #sudo ufw allow from 192.168.1.0/24 to any app VLC_RTP
 #sudo ufw allow from 192.168.1.0/24 to any app VLC_UDP
 sudo ufw allow from 192.168.1.0/24 to any app Avahi
-sudo ufw allow from 192.168.1.0/24 to any app Clementine
+#sudo ufw allow from 192.168.1.0/24 to any app Clementine
 sudo ufw allow from 192.168.1.0/24 to any app MPD
-sudo ufw allow from 192.168.1.0/24 to any app UMS
+#sudo ufw allow from 192.168.1.0/24 to any app UMS
 sudo ufw allow from 192.168.1.0/24 to any app VNC
 
 ################################################################################
 # PulseAudio RTP Multicast
 # Please note iptables rules above
 ################################################################################
-sudo ufw allow in proto udp from 224.0.0.0/4
-sudo ufw allow in proto udp to 224.0.0.0/4
+#sudo ufw allow in proto udp from 224.0.0.0/4
+#sudo ufw allow in proto udp to 224.0.0.0/4
 
 ################################################################################
 # Internet Exposed Games
 ################################################################################
-#sudo ufw allow Freeciv
-#sudo ufw allow Quake
-#sudo ufw allow Quake2
-#sudo ufw allow QuakeLive
+sudo ufw allow Freeciv
+sudo ufw allow Quake
+sudo ufw allow Quake2
+sudo ufw allow QuakeLive
 sudo ufw allow AIWar
 sudo ufw allow Blizzard
 sudo ufw allow D2X-XL
