@@ -18,6 +18,8 @@ you want to expose to the LAN and interwebs. You will need to run this
 with superuser rights.
 
 Edit the rules in the LAN area to reflect the subnet of your LAN, obvs.
+The scripts assume the application profiles in `applications.d` have been
+copied into `/etc/ufw/applications.d` and loaded by UFW.
 
 You can use something like my [network control manager](https://github.com/uriel1998/networkcontrol-wicd-networkmanager)
  to configure which script is called.
@@ -32,6 +34,14 @@ the bother to collect these blocklists, we might as well use them for
 legit purposes, right?
 
 It can be used without my UFW script, but you'll want to uncomment the 
-last two lines. You will need to run this with superuser rights.
+last `FORWARD` rule if you want forwarding blocked as well. The scripts
+always ensure an `INPUT` drop rule exists for the `evil_ips` set. You will
+need to run this with superuser rights.
  
 Prerequisites: IPSET, which should be available for your distribution.
+
+#update_adblock.sh
+
+This script uses the same IP-based blocklist flow as `update_ipblock.sh`.
+Traditional hosts-file adblock feeds are not suitable for `ipset` without a
+DNS-layer blocker, so they are intentionally not used here.

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 ########################################################################
 # This is a script to automate the downloading, cleaning, and 
 # implementation of blocklists for IPTABLES to protect your 
@@ -31,17 +33,37 @@ ionice -c3 -p$$
 SETNAME="evil_ips"
 workdir="$HOME/.config/evil_ip"
 downloads=(
-	"ad1|https://adaway.org/hosts.txt"
-	"ad2|https://hosts-file.net/ad_servers.txt"
-	"ad3|http://winhelp2002.mvps.org/hosts.txt"
-	"ad4|http://someonewhocares.org/hosts/zero/hosts"
-	"ad6|http://www.hostsfile.org/Downloads/hosts.txt"
 	"pedos.gz|http://list.iblocklist.com/?list=dufcxgnbjsdwmwctgfuj&fileformat=p2p&archiveformat=gz"
 	"ads.gz|http://list.iblocklist.com/?list=dgxtneitpuvgqqcpfulq&fileformat=p2p&archiveformat=gz"
 	"spyware.gz|http://list.iblocklist.com/?list=llvtlsjyoyiczbkjsxpf&fileformat=p2p&archiveformat=gz"
 	"hijacked.gz|http://list.iblocklist.com/?list=usrcshglbiilevmyfhse&fileformat=p2p&archiveformat=gz"
 	"exploit.gz|http://list.iblocklist.com/?list=ghlzqtqxnzctvvajwwag&fileformat=p2p&archiveformat=gz"
 )
+downloaded_files=()
+
+require_command() {
+	local cmd=$1
+
+	if ! command -v "$cmd" >/dev/null 2>&1; then
+		echo "Missing required command: $cmd" >&2
+		exit 1
+	fi
+}
+
+ensure_iptables_set_drop_rule() {
+	local chain=$1
+
+	if ! sudo iptables -C "$chain" -m set --match-set "$SETNAME" src -j DROP &>/dev/null; then
+		sudo iptables -I "$chain" 2 -m set --match-set "$SETNAME" src -j DROP
+	fi
+}
+
+require_command gawk
+require_command gunzip
+require_command ipset
+require_command ionice
+require_command iptables
+require_command wget
 
 mkdir -p "$workdir"
 cd "$workdir" || exit 1
@@ -51,16 +73,25 @@ rm -f -- "$workdir/evil_ips.dat" "$workdir/bigfilter.raw"
 # Download the IP filter lists. If you have an account with I-Blocklist, 
 # you may have more options; these are the public links
 #
-# We are only downloading "evil" ones - associated with child porn,
-# spyware, web exploits - stuff you just don't want.
-# Obviously, you will want to comment out any you don't care about.
+# Hosts-based adblock feeds need DNS-layer enforcement and do not produce
+# useful ipset entries, so this script only consumes IP-based blocklists.
 ########################################################################
 
 for download in "${downloads[@]}"; do
 	filename=${download%%|*}
 	url=${download#*|}
-	wget -O "$workdir/$filename" "$url"
+	if wget -O "$workdir/$filename" "$url"; then
+		downloaded_files+=("$filename")
+	else
+		echo "Warning: failed to download $url" >&2
+		rm -f -- "$workdir/$filename"
+	fi
 done
+
+if [ "${#downloaded_files[@]}" -eq 0 ]; then
+	echo "Unable to download any blocklists." >&2
+	exit 1
+fi
 
 
 shopt -s nullglob
@@ -73,15 +104,27 @@ done
 # Combining, cleaning, transforming the blocklists 
 ########################################################################
 
-for file in "${downloads[@]}"; do
-	filename=${file%%|*}
+for filename in "${downloaded_files[@]}"; do
 	plain_file=${filename%.gz}
+	if [ ! -f "$plain_file" ]; then
+		continue
+	fi
 	cat "$plain_file" >> "$workdir/bigfilter.raw"
 	rm -f -- "$plain_file"
 done
 
+if [ ! -f "$workdir/bigfilter.raw" ]; then
+	echo "Downloaded blocklists did not yield any usable data." >&2
+	exit 1
+fi
+
 grep ":" "$workdir/bigfilter.raw" | gawk -F ":" '{print $2}' | sort -u > "$workdir/evil_ips.dat"
 rm -f -- "$workdir/bigfilter.raw"
+
+if [ ! -s "$workdir/evil_ips.dat" ]; then
+	echo "Blocklists produced no IP ranges." >&2
+	exit 1
+fi
 
 ########################################################################
 # Cleaning or creating the IP set, then adding the list. May take a 
@@ -92,11 +135,12 @@ rm -f -- "$workdir/bigfilter.raw"
 if ! sudo ipset list "$SETNAME" &>/dev/null; then
 	echo "Creating IPSET list $SETNAME"
 	sudo ipset create "$SETNAME" hash:net # create new IP set
-	sudo iptables -I INPUT 2 -m set --match-set "$SETNAME" src -j DROP
 else
 	echo "Clearing list $SETNAME"
 	sudo ipset flush "$SETNAME" # clear existing IP set
 fi
+
+ensure_iptables_set_drop_rule INPUT
 
 echo "Adding IPs to $SETNAME"
 while read -r line; do

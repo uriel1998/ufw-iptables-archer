@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 #################################################################################
 #
 # This utility is to be able to easily and quickly configure UFW
@@ -166,9 +168,9 @@ echo y | sudo ufw reset
 ################################################################################
 # My Outbound ONLY Traffic
 ################################################################################
-sudo ufw allow out DNS 
-sudo ufw allow out SSH
-sudo ufw allow out time
+sudo ufw allow out app DNS
+sudo ufw allow out app SSH
+sudo ufw allow out 123/udp
 
 ################################################################################
 # And close up everything else
