@@ -1,5 +1,7 @@
 # reference, old shit
 1_reference/
+.codex/
+.agents/
 
 # macOS Junks
 .DS_Store

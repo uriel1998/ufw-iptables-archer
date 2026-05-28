@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 ########################################################################
 # This is a script to automate the downloading, cleaning, and 
@@ -30,17 +30,22 @@ ionice -c3 -p$$
 
 SETNAME="evil_ips"
 workdir="$HOME/.config/evil_ip"
+downloads=(
+	"ad1|https://adaway.org/hosts.txt"
+	"ad2|https://hosts-file.net/ad_servers.txt"
+	"ad3|http://winhelp2002.mvps.org/hosts.txt"
+	"ad4|http://someonewhocares.org/hosts/zero/hosts"
+	"ad6|http://www.hostsfile.org/Downloads/hosts.txt"
+	"pedos.gz|http://list.iblocklist.com/?list=dufcxgnbjsdwmwctgfuj&fileformat=p2p&archiveformat=gz"
+	"ads.gz|http://list.iblocklist.com/?list=dgxtneitpuvgqqcpfulq&fileformat=p2p&archiveformat=gz"
+	"spyware.gz|http://list.iblocklist.com/?list=llvtlsjyoyiczbkjsxpf&fileformat=p2p&archiveformat=gz"
+	"hijacked.gz|http://list.iblocklist.com/?list=usrcshglbiilevmyfhse&fileformat=p2p&archiveformat=gz"
+	"exploit.gz|http://list.iblocklist.com/?list=ghlzqtqxnzctvvajwwag&fileformat=p2p&archiveformat=gz"
+)
 
-if [ ! -d "$workdir" ]; then
-	mkdir "$workdir"
-fi	
-cd "$workdir"
-
-if [ -f "$workdir"/evil_ips.dat ]; then
-	rm -f "$workdir"/evil_ips.dat
-fi
-
-cd "$workdir"
+mkdir -p "$workdir"
+cd "$workdir" || exit 1
+rm -f -- "$workdir/evil_ips.dat" "$workdir/bigfilter.raw"
 
 ########################################################################
 # Download the IP filter lists. If you have an account with I-Blocklist, 
@@ -51,43 +56,32 @@ cd "$workdir"
 # Obviously, you will want to comment out any you don't care about.
 ########################################################################
 
-wget -O "$workdir"/ad1 "https://adaway.org/hosts.txt"
-wget -O "$workdir"/ad2 "https://hosts-file.net/ad_servers.txt"
-wget -O "$workdir"/ad3 "http://winhelp2002.mvps.org/hosts.txt"
-wget -O "$workdir"/ad4 "http://someonewhocares.org/hosts/zero/hosts"
-#A bit paranoid
-wget -O "$workdir"/ad6 "http://www.hostsfile.org/Downloads/hosts.txt"
-
-
-#Pedos
-wget -O "$workdir"/pedos.gz "http://list.iblocklist.com/?list=dufcxgnbjsdwmwctgfuj&fileformat=p2p&archiveformat=gz"
-#ads
-wget -O "$workdir"/ads.gz "http://list.iblocklist.com/?list=dgxtneitpuvgqqcpfulq&fileformat=p2p&archiveformat=gz"
-#spyware
-wget -O "$workdir"/spyware.gz "http://list.iblocklist.com/?list=llvtlsjyoyiczbkjsxpf&fileformat=p2p&archiveformat=gz"
-#hijacked
-wget -O "$workdir"/hijacked.gz "http://list.iblocklist.com/?list=usrcshglbiilevmyfhse&fileformat=p2p&archiveformat=gz"
-#webexploit
-wget -O "$workdir"/exploit.gz "http://list.iblocklist.com/?list=ghlzqtqxnzctvvajwwag&fileformat=p2p&archiveformat=gz"
+for download in "${downloads[@]}"; do
+	filename=${download%%|*}
+	url=${download#*|}
+	wget -O "$workdir/$filename" "$url"
+done
 
 
 shopt -s nullglob
 
-for f in *.gz; do gunzip -f $f;done
-
-for f in *.gz;do rm -f $f;done
+for f in *.gz; do
+	gunzip -f "$f"
+done
 
 ########################################################################
 # Combining, cleaning, transforming the blocklists 
 ########################################################################
 
-for file in *; do                                                                                   
-	test "${file%.*}" = "$file" && cat "$file" >> "$workdir"/bigfilter.raw;
-	rm "$file";                                           
+for file in "${downloads[@]}"; do
+	filename=${file%%|*}
+	plain_file=${filename%.gz}
+	cat "$plain_file" >> "$workdir/bigfilter.raw"
+	rm -f -- "$plain_file"
 done
 
-cat "$workdir"/bigfilter.raw | grep ":" | gawk -F ":" '{print $2}' |sort | uniq |sort > "$workdir"/evil_ips.dat
-rm "$workdir"/bigfilter.raw
+grep ":" "$workdir/bigfilter.raw" | gawk -F ":" '{print $2}' | sort -u > "$workdir/evil_ips.dat"
+rm -f -- "$workdir/bigfilter.raw"
 
 ########################################################################
 # Cleaning or creating the IP set, then adding the list. May take a 
@@ -95,20 +89,19 @@ rm "$workdir"/bigfilter.raw
 # you have a visual clue as to what's going on.
 ########################################################################
 
-sudo ipset list $SETNAME &>/dev/null # check if the IP set exists
-if [ $? -ne 0 ]; then
-	echo "Creating IPSET list $SETNAMES"
-	sudo ipset create $SETNAME hash:net # create new IP set
-	sudo iptables -I INPUT 2 -m set --match-set $SETNAME src -j DROP
+if ! sudo ipset list "$SETNAME" &>/dev/null; then
+	echo "Creating IPSET list $SETNAME"
+	sudo ipset create "$SETNAME" hash:net # create new IP set
+	sudo iptables -I INPUT 2 -m set --match-set "$SETNAME" src -j DROP
 else
 	echo "Clearing list $SETNAME"
-	sudo ipset flush $SETNAME # clear existing IP set
+	sudo ipset flush "$SETNAME" # clear existing IP set
 fi
 
 echo "Adding IPs to $SETNAME"
-while read line;do
-	printf "Adding $line \n"
-	sudo ipset add evil_ips "$line"
+while read -r line; do
+	printf 'Adding %s\n' "$line"
+	sudo ipset add "$SETNAME" "$line"
 done < "$workdir"/evil_ips.dat
 
 ########################################################################

@@ -21,7 +21,7 @@
 
 echo "Did you run this script with sudo privileges? If not, Ctrl-C."
 echo "Otherwise, press any key to continue."
-read
+read -r
 
 ################################################################################
 # To reset
